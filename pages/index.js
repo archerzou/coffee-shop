@@ -3,12 +3,22 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Banner from '../components/banner';
 import Card from '../components/card';
+import coffeeStores from "../data/coffee-stores.json";
+
+export async function getStaticProps(context) {
+  // const coffeeStores = await fetchCoffeeStores();
+  return {
+    props: {
+      coffeeStores,
+    }, // will be passed to the page component as props
+  };
+}
 
 const handleOnBannerBtnClick = () => {
   console.log('Hi, banner button');
 };
 
-export default function Home() {
+export default function Home(props) {
   return (
     <div className={styles.container}>
       <Head>
@@ -29,12 +39,17 @@ export default function Home() {
               height={400}
               alt="hero image"
           />
-      </div>
-      <Card
-        name="DarkHorse Coffee"
-        imgUrl="/static/hero-image.png"
-        href="/coffee-store/darkhorse-coffee"
-      />
+        </div>
+        <div className={styles.cardLayout}>
+          {props.coffeeStores.map(coffeeStore => {
+            return <Card
+                      key={coffeeStore.id}
+                      name={coffeeStore.name}
+                      imgUrl={coffeeStore.imgUrl}
+                      href={`/coffee-store/${coffeeStore.id}`}
+                  />
+          })}     
+        </div>
       </main>
     </div>
   )
