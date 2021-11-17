@@ -9,8 +9,6 @@ import styles from "../../styles/coffee-store.module.css";
 
 import { fetchCoffeeStores } from "../../lib/coffee-stores"; 
 
-import coffeeStoresData from "../../data/coffee-stores.json";
-
 export async function getStaticProps(staticProps) {
     const params = staticProps.params;
   
